@@ -1,10 +1,5 @@
 # Laravel Pricing Plans
 
-[![Build Status](https://travis-ci.org/oanhnn/laravel-pricing-plans.svg?branch=master)](https://travis-ci.org/oanhnn/laravel-pricing-plans)
-[![Coverage Status](https://coveralls.io/repos/github/oanhnn/laravel-pricing-plans/badge.svg?branch=master)](https://coveralls.io/github/oanhnn/laravel-pricing-plans?branch=master)
-[![Latest Version](https://img.shields.io/github/release/oanhnn/laravel-pricing-plans.svg?style=flat-square)](https://github.com/oanhnn/laravel-pricing-plans/releases)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-
 Easy provide pricing plans for Your Laravel 5.4+ Application.
 
 <!-- MarkdownTOC depth="2" autolink="true" bracket="round" -->
@@ -19,11 +14,11 @@ Easy provide pricing plans for Your Laravel 5.4+ Application.
     - [Contract and Traits](#contract-and-traits)
 - [Config File](#config-file)
 - [Models](#models)
-    - [Feature model](#feature-model) 
-    - [Plan model](#plan-model) 
-    - [PlanFeature model](#planfeature-model) 
-    - [PlanSubscription model](#plansubscription-model) 
-    - [PlanSubscriptionUsage model](#plansubscriptionusage-model) 
+    - [Feature model](#feature-model)
+    - [Plan model](#plan-model)
+    - [PlanFeature model](#planfeature-model)
+    - [PlanSubscription model](#plansubscription-model)
+    - [PlanSubscriptionUsage model](#plansubscriptionusage-model)
 - [Events](#events)
     - [SubscriptionRenewed event](#subscriptionrenewed-event)
     - [SubscriptionCanceled event](#subscriptioncanceled-event)
@@ -103,7 +98,7 @@ $ php artisan migrate
 
 ### Contract and Traits
 
-Add `Laravel\PricingPlans\Contacts\Subscriber` contract and `Laravel\PricingPlans\Models\Concerns\Subscribable` trait 
+Add `Laravel\PricingPlans\Contacts\Subscriber` contract and `Laravel\PricingPlans\Models\Concerns\Subscribable` trait
 to your subscriber model (Eg. `User`).
 
 See the following example:
@@ -129,14 +124,14 @@ You can configure what database tables, what models to use, list of positive wor
 
 Definitions:
 
-- **Positive Words**: Are used to tell if a particular feature is _enabled_. E.g., if the feature `listing_title_bold` 
+- **Positive Words**: Are used to tell if a particular feature is _enabled_. E.g., if the feature `listing_title_bold`
    has the value `Y` (_Y_ is one of the positive words) then, that means it's enabled.
 
 Take a look to the `config/plans.php` config file for more details.
 
 ## Models
 
-PricingPlans uses 5 models under namespace `Laravel\PricingPlans\Models`. You can change to using extended classes of it by 
+PricingPlans uses 5 models under namespace `Laravel\PricingPlans\Models`. You can change to using extended classes of it by
 changing models class in config file:
 
 ### Feature model
@@ -202,7 +197,7 @@ Fired when a subscription is canceled using the `cancel()` method.
 
 ### `SubscriptionPlanChanged` event
 
-Fired when a subscription's plan is changed. This will be triggered once the `PlanSubscription` model is saved. 
+Fired when a subscription's plan is changed. This will be triggered once the `PlanSubscription` model is saved.
 Plan change is determine by comparing the original and current value of `plan_id`.
 
 ## Usage
@@ -252,9 +247,9 @@ $plan->features()->attach([
 
 ### Creating subscriptions
 
-You can subscribe a user to a plan by using the `newSubscription()` function available in the `Subscribable` trait. 
+You can subscribe a user to a plan by using the `newSubscription()` function available in the `Subscribable` trait.
 First, retrieve an instance of your subscriber model, which typically will be your user model and an instance of the plan
-your user is subscribing to. Once you have retrieved the model instance, you may use the `newSubscription` method 
+your user is subscribing to. Once you have retrieved the model instance, you may use the `newSubscription` method
 to create the model's subscription.
 
 ```php
@@ -269,11 +264,11 @@ $plan = Plan::code(Plan::PLAN_PRO)->firstOrFail();
 $user->newSubscription('main', $plan)->create();
 ```
 
-The first argument passed to `newSubscription` method should be the name of the subscription. If your application offer 
+The first argument passed to `newSubscription` method should be the name of the subscription. If your application offer
 a single subscription, you might call this `main` or `primary`. The second argument is the plan instance your user is subscribing to.
 
-<!-- ~~If both plans (current and new plan) have the same billing frequency (e.g., ` interval_unit` and `interval_count`) the subscription 
-will retain the same billing dates. If the plans don't have the same billing frequency, the subscription will have the new plan billing frequency, 
+<!-- ~~If both plans (current and new plan) have the same billing frequency (e.g., ` interval_unit` and `interval_count`) the subscription
+will retain the same billing dates. If the plans don't have the same billing frequency, the subscription will have the new plan billing frequency,
 starting on the day of the change and _the subscription usage data will be cleared_.~~ -->
 
 <!-- ~~If the new plan have a trial period and it's a new subscription, the trial period will be applied.~~ -->
@@ -299,22 +294,22 @@ Other methods are:
 - `remainings`: returns available uses for a particular feature.
 - `value`: returns the feature value.
 
-> All methods share the same signature: e.g.    
+> All methods share the same signature: e.g.
 >`$user->subscription('main')->ability()->consumed(Feature::FEATURE_UPLOAD_IMAGES);`.
 
 
 ### Record Feature Usage
 
-In order to efectively use the ability methods you will need to keep track of every usage of each feature 
-(or at least those that require it). You may use the `record` method available through the user `subscriptionUsage()` 
+In order to efectively use the ability methods you will need to keep track of every usage of each feature
+(or at least those that require it). You may use the `record` method available through the user `subscriptionUsage()`
 method:
 
 ```php
 $user->subscriptionUsage('main')->record(Feature::FEATURE_UPLOAD_IMAGES);
 ```
 
-The `record` method accept 3 parameters: the first one is the feature's code, the second one is the quantity of 
-uses to add (default is `1`), and the third one indicates if the addition should be incremental (default behavior), 
+The `record` method accept 3 parameters: the first one is the feature's code, the second one is the quantity of
+uses to add (default is `1`), and the third one indicates if the addition should be incremental (default behavior),
 when disabled the usage will be override by the quantity provided. E.g.:
 
 ```php
@@ -327,7 +322,7 @@ $user->subscriptionUsage('main')->record(Feature::FEATURE_UPLOAD_IMAGES, 9, fals
 
 ### Reduce Feature Usage
 
-Reducing the feature usage is _almost_ the same as incrementing it. Here we only _substract_ a given quantity (default is `1`) 
+Reducing the feature usage is _almost_ the same as incrementing it. Here we only _substract_ a given quantity (default is `1`)
 to the actual usage:
 
 ```php
@@ -366,7 +361,7 @@ $user->subscription('main')->onTrial();
 
 ### Renew a Subscription
 
-To renew a subscription you may use the `renew` method available in the subscription model. 
+To renew a subscription you may use the `renew` method available in the subscription model.
 This will set a new `ends_at` date based on the selected plan and _will clear the usage data_ of the subscription.
 
 ```php
@@ -435,7 +430,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email to [Oanh Nguyen](mailto:oanhnn.bk@gmail.com) instead of 
+If you discover any security related issues, please email to [Oanh Nguyen](mailto:oanhnn.bk@gmail.com) instead of
 using the issue tracker.
 
 ## Credits
@@ -449,5 +444,5 @@ Thank [Gerardo Baez](https://github.com/gerardojbaez)
 
 ## License
 
-This project is released under the MIT License.   
+This project is released under the MIT License.
 Copyright © 2017-2018 [Oanh Nguyen](https://oanhnn.github.io/).
