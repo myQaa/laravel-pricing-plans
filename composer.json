@@ -1,5 +1,5 @@
 {
-  "name": "oanhnn/laravel-pricing-plans",
+  "name": "myqaa/laravel-pricing-plans",
   "type": "library",
   "description": "A package provide pricing plans for Laravel.",
   "keywords": [
@@ -9,10 +9,10 @@
     "pricing"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/oanhnn/laravel-pricing-plans",
+  "homepage": "https://github.com/myqaa/laravel-pricing-plans",
   "support": {
-    "issues": "https://github.com/oanhnn/laravel-pricing-plans/issues",
-    "source": "https://github.com/oanhnn/laravel-pricing-plans"
+    "issues": "https://github.com/myqaa/laravel-pricing-plans/issues",
+    "source": "https://github.com/myqaa/laravel-pricing-plans"
   },
   "authors": [
     {
