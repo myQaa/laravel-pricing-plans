@@ -145,6 +145,21 @@ class PlanSubscription extends Model
     }
 
     /**
+     * Get subscription features.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function features()
+    {
+        return $this->belongsToMany(
+            Config::get('plans.models.Feature'),
+            Config::get('plans.tables.plan_subscription_feature'),
+            'subscription_id',
+            'feature_id'
+        );
+    }
+
+    /**
      * Get status attribute.
      *
      * @return string

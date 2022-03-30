@@ -32,6 +32,7 @@ return [
         'plan_features'            => 'plan_features',
         'plan_subscriptions'       => 'plan_subscriptions',
         'plan_subscription_usages' => 'plan_subscription_usages',
+        'plan_subscription_feature' => 'plan_subscription_feature',
     ],
 
     /*
