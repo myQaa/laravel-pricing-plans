@@ -67,7 +67,8 @@ class CreatePlansTables extends Migration
             $table->timestamps();
 
             $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade');
-            $table->index(['subscriber_type', 'subscriber_id', 'plan_id']);
+
+            $table->index(['subscriber_type', 'subscriber_id', 'plan_id'], database_prefix().'plan_subscriptions_su_type_su_id_pl_id_index');
         });
 
         Schema::create($tables['plan_subscription_usages'], function (Blueprint $table) {
