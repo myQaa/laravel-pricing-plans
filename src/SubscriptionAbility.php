@@ -40,6 +40,11 @@ class SubscriptionAbility
             return false;
         }
 
+        // By pass other checks if the subscription is already attached to the feature
+        if ($this->subscription->features->where('code', $featureCode)->count()) {
+            return true;
+        }
+
         // Match "boolean" type value
         if ($this->enabled($featureCode) === true) {
             return true;

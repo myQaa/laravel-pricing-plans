@@ -82,6 +82,17 @@ class CreatePlansTables extends Migration
             $table->foreign('feature_code')->references('code')->on('features')->onDelete('cascade');
             $table->unique(['subscription_id', 'feature_code']);
         });
+
+        Schema::create($tables['plan_subscription_feature'], function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('subscription_id')->unsigned();
+            $table->integer('feature_id')->unsigned();
+
+            $table->foreign('subscription_id')->references('id')->on('plan_subscriptions')->onDelete('cascade');
+            $table->foreign('feature_id')->references('id')->on('features')->onDelete('cascade');
+
+            $table->unique(['subscription_id', 'feature_id']);
+        });
     }
 
     /**
@@ -93,6 +104,7 @@ class CreatePlansTables extends Migration
     {
         $tables = Config::get('plans.tables');
 
+        Schema::dropIfExists($tables['plan_subscription_feature']);
         Schema::dropIfExists($tables['plan_subscription_usages']);
         Schema::dropIfExists($tables['plan_subscriptions']);
         Schema::dropIfExists($tables['plan_features']);
