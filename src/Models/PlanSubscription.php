@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Event;
 use InvalidArgumentException;
+use Laravel\PricingPlans\Events\SubscriptionPlanChanged;
 use Laravel\PricingPlans\Events\SubscriptionRenewed;
 use Laravel\PricingPlans\Period;
 use Laravel\PricingPlans\SubscriptionAbility;
