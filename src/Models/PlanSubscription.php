@@ -13,6 +13,7 @@ use Laravel\PricingPlans\Events\SubscriptionRenewed;
 use Laravel\PricingPlans\Period;
 use Laravel\PricingPlans\SubscriptionAbility;
 use Laravel\PricingPlans\SubscriptionUsageManager;
+use Laravel\PricingPlans\Events\SubscriptionPlanChanged;
 use Laravel\PricingPlans\Models\Concerns\BelongsToPlanModel;
 use LogicException;
 
