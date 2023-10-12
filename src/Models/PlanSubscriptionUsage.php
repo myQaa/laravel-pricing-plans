@@ -35,11 +35,12 @@ class PlanSubscriptionUsage extends Model
      *
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'valid_until',
+
+    protected $casts = [
+        'valid_until' => 'datetime',
     ];
+
+
 
     /**
      * Plan constructor.

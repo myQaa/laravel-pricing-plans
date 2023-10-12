@@ -64,13 +64,11 @@ class PlanSubscription extends Model
      *
      * @var array
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'starts_at',
-        'ends_at',
-        'canceled_at',
-        'trial_ends_at',
+    protected $casts = [
+        'starts_at' => 'datetime',
+        'ends_at' => 'datetime',
+        'canceled_at' => 'datetime',
+        'trial_ends_at' => 'datetime',
     ];
 
     /**
